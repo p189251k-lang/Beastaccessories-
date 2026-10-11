@@ -1,0 +1,1800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Beast Accessories | Premium Smartphones & Tech Gear</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        beast: {
+                            50: '#fffbea',
+                            100: '#fff3c4',
+                            400: '#f59e0b',
+                            500: '#ff9f1c', // Primary Accent
+                            600: '#e07a00',
+                            700: '#b35900',
+                            900: '#0d0f12', // Background Dark
+                            800: '#161920', // Card Dark
+                            700border: '#262a36'
+                        },
+                        cyber: {
+                            pink: '#f72585',
+                            neon: '#00f5d4'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Font Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0d0f12;
+            color: #f3f4f6;
+            -webkit-tap-highlight-color: transparent;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0d0f12;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #262a36;
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #ff9f1c;
+        }
+        .glass-panel {
+            background: rgba(22, 25, 32, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .badge-pulse {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.85; transform: scale(1.05); }
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-beast-900 text-gray-100 min-h-screen pb-20 md:pb-10 flex flex-col">
+
+    <div id="toast-container" class="fixed top-20 right-4 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+    <!-- Top Announcement Bar -->
+    <div class="bg-gradient-to-r from-amber-600 via-orange-500 to-amber-600 text-black text-xs font-bold py-1.5 px-4 text-center tracking-wide">
+        ⚡ FESTIVE BEAST SALE: Extra 10% OFF with Code <span class="underline uppercase">BEAST10</span> | Express 24-Hr Delivery
+    </div>
+
+    <!-- Main Navigation Header -->
+    <header class="sticky top-0 z-40 glass-panel border-b border-beast-700border transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 gap-4">
+                
+                <!-- Brand Logo -->
+                <div class="flex items-center gap-3 cursor-pointer" onclick="navigateTo('home')">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-beast-500 to-orange-600 flex items-center justify-center shadow-lg shadow-orange-500/20">
+                        <svg class="w-6 h-6 text-black fill-current" viewBox="0 0 24 24">
+                            <!-- Beast Claw / Horn Icon -->
+                            <path d="M12 2L4 7v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-8-5zm0 4.18l5 3.12v3.8c0 3.63-2.45 7.03-5 8.12-2.55-1.09-5-4.49-5-8.12V9.3l5-3.12z"/>
+                            <path d="M9 10l3 5 3-5-3 2z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <span class="text-xl font-extrabold tracking-wider bg-gradient-to-r from-white via-gray-200 to-beast-500 bg-clip-text text-transparent uppercase">
+                            BEAST<span class="text-beast-500">.</span>
+                        </span>
+                        <span class="block text-[9px] text-gray-400 font-semibold tracking-widest -mt-1 uppercase">ACCESSORIES</span>
+                    </div>
+                </div>
+
+                <!-- Desktop Search Bar -->
+                <div class="hidden md:flex flex-1 max-w-xl relative">
+                    <input type="text" id="desktop-search" oninput="handleSearchInput(this.value)" placeholder="Search iPhone 16 Pro, Samsung S25 Ultra, 65W GaN Charger..." 
+                        class="w-full bg-beast-800 text-sm border border-gray-700 rounded-full py-2.5 pl-10 pr-10 text-gray-200 placeholder-gray-500 focus:outline-none focus:border-beast-500 transition-colors">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3.5 text-gray-400 text-sm"></i>
+                    <button id="clear-desktop-search" onclick="clearSearch()" class="hidden absolute right-3 top-2.5 text-gray-400 hover:text-white">
+                        <i class="fa-solid fa-circle-xmark"></i>
+                    </button>
+                    <!-- Search Suggestions Box -->
+                    <div id="search-suggestions" class="hidden absolute top-full left-0 right-0 mt-2 bg-beast-800 border border-gray-700 rounded-xl shadow-2xl z-50 max-h-80 overflow-y-auto"></div>
+                </div>
+
+                <!-- Header Actions -->
+                <div class="flex items-center gap-3 sm:gap-4">
+                    <!-- Wishlist Icon -->
+                    <button onclick="navigateTo('wishlist')" class="relative p-2 text-gray-300 hover:text-beast-500 transition-colors" title="Wishlist">
+                        <i class="fa-regular fa-heart text-xl"></i>
+                        <span id="wishlist-badge" class="hidden absolute -top-1 -right-1 bg-cyber-pink text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">0</span>
+                    </button>
+
+                    <!-- Cart Icon -->
+                    <button onclick="toggleCartDrawer(true)" class="relative p-2 text-gray-300 hover:text-beast-500 transition-colors" title="Shopping Cart">
+                        <i class="fa-solid fa-bag-shopping text-xl"></i>
+                        <span id="cart-badge" class="hidden absolute -top-1 -right-1 bg-beast-500 text-black text-[10px] font-extrabold w-4 h-4 rounded-full flex items-center justify-center">0</span>
+                    </button>
+
+                    <!-- User Profile / Admin Quick Switch -->
+                    <button onclick="navigateTo('account')" class="hidden sm:flex items-center gap-2 p-1.5 px-3 rounded-full bg-beast-800 border border-gray-700 hover:border-beast-500 text-xs font-medium text-gray-200 transition-colors">
+                        <i class="fa-solid fa-circle-user text-beast-500 text-base"></i>
+                        <span id="header-user-label">Account</span>
+                    </button>
+
+                    <button onclick="toggleAdminPanel()" class="p-2 bg-beast-800 border border-amber-500/30 text-amber-400 hover:bg-amber-500 hover:text-black rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all" title="Admin Portal">
+                        <i class="fa-solid fa-shield-halved"></i>
+                        <span class="hidden lg:inline">Admin</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Search Bar -->
+            <div class="md:hidden pb-3 relative">
+                <input type="text" id="mobile-search" oninput="handleSearchInput(this.value)" placeholder="Search iPhone, Samsung, Charger..." 
+                    class="w-full bg-beast-800 text-xs border border-gray-700 rounded-full py-2 pl-9 pr-8 text-gray-200 placeholder-gray-500 focus:outline-none focus:border-beast-500">
+                <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-gray-400 text-xs"></i>
+            </div>
+        </div>
+
+        <!-- Category Nav Strip -->
+        <div class="bg-beast-900/90 border-t border-beast-700border overflow-x-auto no-scrollbar">
+            <div class="max-w-7xl mx-auto px-4 flex items-center gap-6 text-xs font-medium py-2.5 whitespace-nowrap">
+                <button onclick="filterCategory('All')" class="nav-cat-btn text-beast-500 font-bold hover:text-beast-400">All Products</button>
+                <button onclick="filterCategory('iPhone')" class="nav-cat-btn text-gray-300 hover:text-beast-500">iPhone Series</button>
+                <button onclick="filterCategory('Samsung')" class="nav-cat-btn text-gray-300 hover:text-beast-500">Samsung Ultra</button>
+                <button onclick="filterCategory('Accessories')" class="nav-cat-btn text-gray-300 hover:text-beast-500">Accessories</button>
+                <button onclick="filterCategory('Chargers')" class="nav-cat-btn text-gray-300 hover:text-beast-500">Chargers & Power</button>
+                <button onclick="filterCategory('Cases')" class="nav-cat-btn text-gray-300 hover:text-beast-500">Armor Cases</button>
+                <button onclick="filterCategory('Deals')" class="nav-cat-btn text-amber-400 font-semibold flex items-center gap-1">
+                    <i class="fa-solid fa-fire text-xs"></i> Beast Deals
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        
+        <!-- ================= VIEW: HOME ================= -->
+        <section id="view-home" class="space-y-10">
+            <!-- Hero Carousel / Banner -->
+            <div class="relative rounded-3xl overflow-hidden bg-gradient-to-r from-beast-800 via-gray-900 to-beast-900 border border-gray-800 shadow-2xl">
+                <div class="grid grid-cols-1 md:grid-cols-2 items-center p-6 sm:p-10 lg:p-12 gap-8">
+                    <div class="space-y-4">
+                        <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-beast-500/10 border border-beast-500/30 text-beast-500 text-xs font-bold uppercase tracking-wider">
+                            <i class="fa-solid fa-bolt text-amber-400"></i> Next-Gen Tech Flagships
+                        </span>
+                        <h1 class="text-3xl sm:text-5xl font-extrabold text-white leading-tight">
+                            Premium Smartphones. <br/>
+                            <span class="bg-gradient-to-r from-beast-500 via-amber-300 to-orange-500 bg-clip-text text-transparent">Beast Prices.</span>
+                        </h1>
+                        <p class="text-gray-400 text-sm sm:text-base max-w-md">
+                            Shop official iPhone 16 Pro, Samsung S25 Ultra, and high-performance MagSafe & GaN fast charging ecosystem.
+                        </p>
+                        <div class="flex flex-wrap gap-3 pt-2">
+                            <button onclick="filterCategory('iPhone')" class="px-6 py-3 bg-beast-500 hover:bg-beast-600 text-black font-extrabold rounded-xl text-sm transition-transform active:scale-95 shadow-lg shadow-beast-500/20">
+                                Shop iPhone
+                            </button>
+                            <button onclick="filterCategory('Samsung')" class="px-6 py-3 bg-beast-800 hover:bg-gray-700 text-white font-bold border border-gray-700 rounded-xl text-sm transition-all">
+                                Shop Samsung Ultra
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Hero Visual -->
+                    <div class="relative flex justify-center items-center">
+                        <div class="w-64 h-64 sm:w-80 sm:h-80 rounded-full bg-beast-500/10 absolute blur-3xl -z-0"></div>
+                        <div class="relative z-10 flex items-center justify-center space-x-[-30px]">
+                            <div class="w-44 h-80 bg-gray-900 border-4 border-gray-700 rounded-[35px] p-2 shadow-2xl transform -rotate-6 hover:rotate-0 transition-transform duration-500 flex flex-col justify-between overflow-hidden">
+                                <div class="w-20 h-4 bg-black rounded-full mx-auto mt-1 flex justify-center items-center">
+                                    <div class="w-2 h-2 rounded-full bg-blue-900"></div>
+                                </div>
+                                <div class="text-center py-8">
+                                    <i class="fa-brands fa-apple text-5xl text-gray-300"></i>
+                                    <p class="text-[10px] text-beast-500 font-extrabold tracking-widest mt-2 uppercase">iPhone 16 Pro</p>
+                                    <p class="text-xs text-gray-400 mt-1">Titanium Black</p>
+                                </div>
+                                <div class="bg-beast-500 text-black font-extrabold text-[10px] text-center py-1.5 rounded-xl uppercase">From ₹1,19,900</div>
+                            </div>
+                            <div class="w-48 h-84 bg-gray-950 border-4 border-amber-600/50 rounded-[30px] p-2 shadow-2xl transform rotate-6 hover:rotate-0 transition-transform duration-500 flex flex-col justify-between overflow-hidden z-20">
+                                <div class="w-3 h-3 rounded-full bg-gray-800 mx-auto mt-1"></div>
+                                <div class="text-center py-8">
+                                    <span class="text-xs font-black text-beast-500 uppercase tracking-widest">SAMSUNG</span>
+                                    <p class="text-sm font-extrabold text-white mt-1">S25 ULTRA</p>
+                                    <p class="text-[10px] text-gray-400">200MP Quad Cam</p>
+                                </div>
+                                <div class="bg-gradient-to-r from-amber-500 to-orange-600 text-black font-extrabold text-[10px] text-center py-1.5 rounded-xl uppercase">From ₹1,29,999</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Value Props Grid -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="bg-beast-800/60 border border-beast-700border p-4 rounded-2xl flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center text-lg"><i class="fa-solid fa-truck-fast"></i></div>
+                    <div>
+                        <h4 class="text-xs font-bold text-gray-200">Express Shipping</h4>
+                        <p class="text-[10px] text-gray-400">Dispatch in 24 Hours</p>
+                    </div>
+                </div>
+                <div class="bg-beast-800/60 border border-beast-700border p-4 rounded-2xl flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center text-lg"><i class="fa-solid fa-shield-halved"></i></div>
+                    <div>
+                        <h4 class="text-xs font-bold text-gray-200">1-Year Warranty</h4>
+                        <p class="text-[10px] text-gray-400">100% Brand Guarantee</p>
+                    </div>
+                </div>
+                <div class="bg-beast-800/60 border border-beast-700border p-4 rounded-2xl flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center text-lg"><i class="fa-solid fa-lock"></i></div>
+                    <div>
+                        <h4 class="text-xs font-bold text-gray-200">Secure Payments</h4>
+                        <p class="text-[10px] text-gray-400">UPI, Cards & NetBanking</p>
+                    </div>
+                </div>
+                <div class="bg-beast-800/60 border border-beast-700border p-4 rounded-2xl flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center text-lg"><i class="fa-solid fa-rotate-left"></i></div>
+                    <div>
+                        <h4 class="text-xs font-bold text-gray-200">7-Day Easy Returns</h4>
+                        <p class="text-[10px] text-gray-400">Hassle-Free Replacement</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Categories Banner Grid -->
+            <div>
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-lg font-extrabold tracking-wide text-white uppercase flex items-center gap-2">
+                        <i class="fa-solid fa-layer-group text-beast-500"></i> Explore Categories
+                    </h2>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div onclick="filterCategory('iPhone')" class="group relative rounded-2xl overflow-hidden bg-beast-800 border border-beast-700border p-5 cursor-pointer hover:border-beast-500 transition-all">
+                        <div class="text-3xl mb-2 text-beast-500"><i class="fa-brands fa-apple"></i></div>
+                        <h3 class="text-sm font-bold text-white group-hover:text-beast-500">iPhone Series</h3>
+                        <p class="text-xs text-gray-400 mt-1">16 Pro, 15 & Accessories</p>
+                    </div>
+                    <div onclick="filterCategory('Samsung')" class="group relative rounded-2xl overflow-hidden bg-beast-800 border border-beast-700border p-5 cursor-pointer hover:border-beast-500 transition-all">
+                        <div class="text-3xl mb-2 text-beast-500"><i class="fa-solid fa-mobile-screen"></i></div>
+                        <h3 class="text-sm font-bold text-white group-hover:text-beast-500">Samsung Ultra</h3>
+                        <p class="text-xs text-gray-400 mt-1">S25 Ultra & S24 Series</p>
+                    </div>
+                    <div onclick="filterCategory('Chargers')" class="group relative rounded-2xl overflow-hidden bg-beast-800 border border-beast-700border p-5 cursor-pointer hover:border-beast-500 transition-all">
+                        <div class="text-3xl mb-2 text-beast-500"><i class="fa-solid fa-bolt-lightning"></i></div>
+                        <h3 class="text-sm font-bold text-white group-hover:text-beast-500">GaN & MagSafe</h3>
+                        <p class="text-xs text-gray-400 mt-1">Fast Chargers & Banks</p>
+                    </div>
+                    <div onclick="filterCategory('Cases')" class="group relative rounded-2xl overflow-hidden bg-beast-800 border border-beast-700border p-5 cursor-pointer hover:border-beast-500 transition-all">
+                        <div class="text-3xl mb-2 text-beast-500"><i class="fa-solid fa-shield-cat"></i></div>
+                        <h3 class="text-sm font-bold text-white group-hover:text-beast-500">Beast Protection</h3>
+                        <p class="text-xs text-gray-400 mt-1">Military Grade Armor</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Feed Header & Filters -->
+            <div>
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                    <div>
+                        <h2 class="text-xl font-black text-white uppercase tracking-wider flex items-center gap-2">
+                            <span id="catalog-title">🔥 Trending Beast Deals</span>
+                        </h2>
+                        <p id="catalog-subtitle" class="text-xs text-gray-400">Authentic flagships & certified accessories</p>
+                    </div>
+
+                    <!-- Filter Controls & Sort -->
+                    <div class="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar">
+                        <button onclick="toggleMobileFilterModal()" class="md:hidden px-3 py-2 bg-beast-800 border border-gray-700 rounded-xl text-xs font-semibold text-gray-300 flex items-center gap-1.5">
+                            <i class="fa-solid fa-sliders"></i> Filters
+                        </button>
+                        <select id="sort-select" onchange="renderProducts()" class="bg-beast-800 border border-gray-700 text-xs text-gray-200 rounded-xl px-3 py-2 focus:outline-none focus:border-beast-500">
+                            <option value="popular">Sort: Popularity</option>
+                            <option value="price-low">Price: Low to High</option>
+                            <option value="price-high">Price: High to Low</option>
+                            <option value="rating">Highest Rated</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Desktop Sidebar Filters + Product Grid Layout -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                    <!-- Desktop Filter Sidebar -->
+                    <div class="hidden md:block bg-beast-800/80 border border-beast-700border p-5 rounded-2xl space-y-6 h-fit sticky top-28">
+                        <div class="flex items-center justify-between pb-3 border-b border-gray-700">
+                            <h3 class="text-sm font-bold text-white uppercase"><i class="fa-solid fa-filter text-beast-500 mr-2"></i> Filters</h3>
+                            <button onclick="resetFilters()" class="text-xs text-beast-500 hover:underline">Reset</button>
+                        </div>
+
+                        <!-- Brand Filter -->
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-300 mb-2">Brand</label>
+                            <div class="space-y-1.5 text-xs text-gray-400" id="brand-filter-container">
+                                <!-- Populated dynamically -->
+                            </div>
+                        </div>
+
+                        <!-- Price Range Filter -->
+                        <div>
+                            <div class="flex justify-between text-xs font-semibold text-gray-300 mb-2">
+                                <span>Max Price</span>
+                                <span id="price-range-val" class="text-beast-500">₹1,50,000</span>
+                            </div>
+                            <input type="range" id="price-range" min="500" max="150000" step="1000" value="150000" oninput="updatePriceFilter(this.value)" class="w-full accent-beast-500 bg-gray-700 h-1.5 rounded-lg">
+                        </div>
+
+                        <!-- Storage Filter -->
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-300 mb-2">Storage Option</label>
+                            <div class="grid grid-cols-2 gap-2 text-xs" id="storage-filter-container">
+                                <!-- Populated dynamically -->
+                            </div>
+                        </div>
+
+                        <!-- In Stock Toggle -->
+                        <div class="flex items-center justify-between pt-2 border-t border-gray-700">
+                            <span class="text-xs font-semibold text-gray-300">In-Stock Only</span>
+                            <input type="checkbox" id="instock-only" onchange="renderProducts()" class="w-4 h-4 accent-beast-500 rounded">
+                        </div>
+                    </div>
+
+                    <!-- Products Grid -->
+                    <div class="md:col-span-3">
+                        <div id="product-grid" class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5">
+                            <!-- Product Cards Injected Dynamically -->
+                        </div>
+                        <div id="no-products-view" class="hidden text-center py-16 bg-beast-800/40 rounded-3xl border border-dashed border-gray-700">
+                            <i class="fa-solid fa-box-open text-4xl text-gray-600 mb-3"></i>
+                            <h3 class="text-base font-bold text-gray-300">No products found</h3>
+                            <p class="text-xs text-gray-500 mt-1">Try relaxing your search terms or filters.</p>
+                            <button onclick="resetFilters()" class="mt-4 px-4 py-2 bg-beast-500 text-black text-xs font-bold rounded-xl">Clear All Filters</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= VIEW: PRODUCT DETAILS ================= -->
+        <section id="view-product-detail" class="hidden space-y-8">
+            <button onclick="navigateTo('home')" class="inline-flex items-center gap-2 text-xs font-semibold text-gray-400 hover:text-beast-500 transition-colors">
+                <i class="fa-solid fa-arrow-left"></i> Back to Products
+            </button>
+
+            <div class="bg-beast-800/90 border border-beast-700border rounded-3xl p-4 sm:p-8 grid grid-cols-1 md:grid-cols-2 gap-8 shadow-2xl">
+                <!-- Gallery Section -->
+                <div class="space-y-4">
+                    <div class="relative bg-beast-900 rounded-2xl p-6 border border-gray-800 flex items-center justify-center min-h-[280px] sm:min-h-[360px] overflow-hidden group">
+                        <img id="detail-main-img" src="" alt="Product Image" class="max-h-72 object-contain transition-transform duration-300 group-hover:scale-105">
+                        <span id="detail-badge" class="absolute top-4 left-4 bg-beast-500 text-black text-[10px] font-extrabold px-2.5 py-1 rounded-md uppercase">BEAST DEAL</span>
+                    </div>
+                    <!-- Thumbnails -->
+                    <div id="detail-thumbnails" class="flex gap-3 overflow-x-auto no-scrollbar py-1">
+                        <!-- Populated via JS -->
+                    </div>
+                </div>
+
+                <!-- Specs & Purchase Info -->
+                <div class="space-y-5">
+                    <div>
+                        <p id="detail-brand" class="text-xs font-bold text-beast-500 uppercase tracking-widest"></p>
+                        <h1 id="detail-title" class="text-2xl sm:text-3xl font-black text-white mt-1"></h1>
+                        
+                        <!-- Rating -->
+                        <div class="flex items-center gap-2 mt-2">
+                            <div id="detail-stars" class="text-amber-400 text-xs flex gap-0.5"></div>
+                            <span id="detail-rating-text" class="text-xs font-bold text-gray-300"></span>
+                            <span class="text-gray-600">|</span>
+                            <span id="detail-reviews-count" class="text-xs text-gray-400"></span>
+                        </div>
+                    </div>
+
+                    <!-- Pricing Box -->
+                    <div class="bg-beast-900/80 p-4 rounded-2xl border border-gray-800 flex items-baseline gap-3">
+                        <span id="detail-selling-price" class="text-3xl font-black text-white"></span>
+                        <span id="detail-mrp" class="text-sm text-gray-500 line-through"></span>
+                        <span id="detail-discount-badge" class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 text-xs font-bold px-2 py-0.5 rounded-md"></span>
+                    </div>
+
+                    <!-- Color Swatches -->
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-300 mb-2">Available Color</label>
+                        <div id="detail-colors" class="flex gap-2"></div>
+                    </div>
+
+                    <!-- Storage Selectors -->
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-300 mb-2">Storage Capacity</label>
+                        <div id="detail-storages" class="flex flex-wrap gap-2"></div>
+                    </div>
+
+                    <!-- Pincode Checker -->
+                    <div class="bg-beast-900/50 p-3 rounded-xl border border-gray-800 flex items-center gap-2">
+                        <i class="fa-solid fa-location-dot text-beast-500 text-sm pl-2"></i>
+                        <input type="text" id="pincode-input" placeholder="Enter Pincode (e.g., 110001)" class="bg-transparent text-xs text-white placeholder-gray-500 focus:outline-none flex-1">
+                        <button onclick="checkPincode()" class="bg-beast-800 hover:bg-gray-700 text-beast-500 text-xs font-bold px-3 py-1.5 rounded-lg border border-gray-700">Check</button>
+                    </div>
+                    <p id="pincode-result" class="text-[11px] text-emerald-400 font-medium px-1"></p>
+
+                    <!-- Desktop Actions -->
+                    <div class="hidden sm:flex gap-3 pt-2">
+                        <button id="detail-add-cart-btn" class="flex-1 bg-beast-800 hover:bg-gray-700 text-white font-bold py-3.5 rounded-xl border border-gray-700 flex items-center justify-center gap-2 text-sm transition-all">
+                            <i class="fa-solid fa-cart-plus"></i> Add to Cart
+                        </button>
+                        <button id="detail-buy-now-btn" class="flex-1 bg-gradient-to-r from-beast-500 to-orange-500 hover:opacity-95 text-black font-extrabold py-3.5 rounded-xl text-sm transition-transform active:scale-95 shadow-lg shadow-beast-500/20">
+                            Buy Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Specs & Reviews Breakdown -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="md:col-span-2 space-y-6">
+                    <div class="bg-beast-800/80 border border-beast-700border rounded-2xl p-6">
+                        <h3 class="text-base font-bold text-white mb-4 uppercase flex items-center gap-2">
+                            <i class="fa-solid fa-circle-info text-beast-500"></i> Key Specifications
+                        </h3>
+                        <div id="detail-specs-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs"></div>
+                    </div>
+
+                    <div class="bg-beast-800/80 border border-beast-700border rounded-2xl p-6">
+                        <h3 class="text-base font-bold text-white mb-4 uppercase flex items-center gap-2">
+                            <i class="fa-solid fa-box text-beast-500"></i> What's In The Box
+                        </h3>
+                        <ul id="detail-box-items" class="list-disc list-inside text-xs text-gray-300 space-y-1"></ul>
+                    </div>
+                </div>
+
+                <!-- Warranty & Support Sidebar -->
+                <div class="space-y-4">
+                    <div class="bg-beast-800/80 border border-beast-700border rounded-2xl p-5 space-y-3">
+                        <h4 class="text-xs font-bold text-white uppercase"><i class="fa-solid fa-award text-amber-400 mr-1.5"></i> Beast Assurance</h4>
+                        <div class="text-xs text-gray-300 space-y-2">
+                            <p class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> 100% Genuine Certified Product</p>
+                            <p class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> 1 Year Manufacturer Warranty</p>
+                            <p class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> Free Transit Insurance</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= VIEW: USER ACCOUNT & ORDERS ================= -->
+        <section id="view-account" class="hidden space-y-8">
+            <div class="flex flex-col md:flex-row gap-6">
+                <!-- Account Navigation Sidebar -->
+                <div class="w-full md:w-64 bg-beast-800 border border-beast-700border rounded-2xl p-4 space-y-2">
+                    <div class="p-3 border-b border-gray-700 mb-2">
+                        <p class="text-xs text-gray-400">Signed in as</p>
+                        <p class="text-sm font-bold text-white" id="user-display-name">Alex Mercer</p>
+                        <span class="text-[10px] text-emerald-400 font-semibold bg-emerald-500/10 px-2 py-0.5 rounded-full inline-block mt-1">Verified Customer</span>
+                    </div>
+                    <button onclick="switchAccountTab('orders')" class="acc-tab-btn w-full text-left px-3 py-2 rounded-xl text-xs font-bold text-beast-500 bg-beast-900 flex items-center gap-2">
+                        <i class="fa-solid fa-box text-sm"></i> My Orders
+                    </button>
+                    <button onclick="switchAccountTab('wishlist')" class="acc-tab-btn w-full text-left px-3 py-2 rounded-xl text-xs font-bold text-gray-300 hover:bg-beast-900 flex items-center gap-2">
+                        <i class="fa-solid fa-heart text-sm"></i> Wishlist
+                    </button>
+                    <button onclick="switchAccountTab('addresses')" class="acc-tab-btn w-full text-left px-3 py-2 rounded-xl text-xs font-bold text-gray-300 hover:bg-beast-900 flex items-center gap-2">
+                        <i class="fa-solid fa-location-dot text-sm"></i> Address Book
+                    </button>
+                </div>
+
+                <!-- Account Main Content -->
+                <div class="flex-1 bg-beast-800/80 border border-beast-700border rounded-2xl p-6">
+                    <!-- Tab: Orders -->
+                    <div id="acc-tab-orders" class="space-y-4">
+                        <h2 class="text-lg font-bold text-white uppercase"><i class="fa-solid fa-clock-rotate-left text-beast-500 mr-2"></i> Order History</h2>
+                        <div id="orders-list-container" class="space-y-4">
+                            <!-- Injected dynamically -->
+                        </div>
+                    </div>
+
+                    <!-- Tab: Wishlist -->
+                    <div id="acc-tab-wishlist" class="hidden space-y-4">
+                        <h2 class="text-lg font-bold text-white uppercase"><i class="fa-solid fa-heart text-cyber-pink mr-2"></i> Saved Wishlist</h2>
+                        <div id="wishlist-grid-container" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <!-- Injected dynamically -->
+                        </div>
+                    </div>
+
+                    <!-- Tab: Addresses -->
+                    <div id="acc-tab-addresses" class="hidden space-y-4">
+                        <h2 class="text-lg font-bold text-white uppercase"><i class="fa-solid fa-map-location-dot text-beast-500 mr-2"></i> Saved Address</h2>
+                        <div class="p-4 border border-gray-700 rounded-xl bg-beast-900/50 space-y-1 text-xs">
+                            <p class="font-bold text-white">Alex Mercer (Default)</p>
+                            <p class="text-gray-300">Plot 42, Cyber Tech Park, Sector 62</p>
+                            <p class="text-gray-400">Noida, Uttar Pradesh - 201301</p>
+                            <p class="text-gray-400">Mobile: +91 98765 43210</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= VIEW: ADMIN DASHBOARD ================= -->
+        <section id="view-admin" class="hidden space-y-8">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-beast-700border pb-4">
+                <div>
+                    <h1 class="text-2xl font-black text-white uppercase flex items-center gap-2">
+                        <i class="fa-solid fa-shield-halved text-amber-400"></i> Store Admin Portal
+                    </h1>
+                    <p class="text-xs text-gray-400">Manage Products, Orders, Stock & Store Analytics</p>
+                </div>
+                <div class="flex gap-2">
+                    <button onclick="openAddProductModal()" class="px-4 py-2 bg-beast-500 text-black font-extrabold text-xs rounded-xl flex items-center gap-1.5 shadow-lg shadow-beast-500/20">
+                        <i class="fa-solid fa-plus"></i> Add Product
+                    </button>
+                    <button onclick="toggleAdminPanel()" class="px-4 py-2 bg-beast-800 text-gray-300 text-xs font-bold rounded-xl border border-gray-700">
+                        Exit Admin
+                    </button>
+                </div>
+            </div>
+
+            <!-- Admin Stats Cards -->
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="bg-beast-800 p-4 rounded-2xl border border-beast-700border space-y-1">
+                    <span class="text-xs font-bold text-gray-400">Total Store Revenue</span>
+                    <p id="admin-stat-revenue" class="text-2xl font-black text-emerald-400">₹0</p>
+                </div>
+                <div class="bg-beast-800 p-4 rounded-2xl border border-beast-700border space-y-1">
+                    <span class="text-xs font-bold text-gray-400">Total Orders</span>
+                    <p id="admin-stat-orders" class="text-2xl font-black text-white">0</p>
+                </div>
+                <div class="bg-beast-800 p-4 rounded-2xl border border-beast-700border space-y-1">
+                    <span class="text-xs font-bold text-gray-400">Catalog Count</span>
+                    <p id="admin-stat-products" class="text-2xl font-black text-beast-500">0</p>
+                </div>
+                <div class="bg-beast-800 p-4 rounded-2xl border border-beast-700border space-y-1">
+                    <span class="text-xs font-bold text-gray-400">Low Stock Alerts</span>
+                    <p id="admin-stat-lowstock" class="text-2xl font-black text-amber-400">0</p>
+                </div>
+            </div>
+
+            <!-- Admin Tab Selector -->
+            <div class="flex border-b border-gray-700 gap-6 text-xs font-bold">
+                <button onclick="switchAdminTab('products')" id="admin-tab-btn-products" class="pb-3 border-b-2 border-beast-500 text-beast-500 uppercase">Product Catalog</button>
+                <button onclick="switchAdminTab('orders')" id="admin-tab-btn-orders" class="pb-3 border-b-2 border-transparent text-gray-400 hover:text-white uppercase">Orders Management</button>
+                <button onclick="switchAdminTab('coupons')" id="admin-tab-btn-coupons" class="pb-3 border-b-2 border-transparent text-gray-400 hover:text-white uppercase">Discount Coupons</button>
+            </div>
+
+            <!-- Admin Content Container -->
+            <div id="admin-content-products" class="space-y-4">
+                <div class="overflow-x-auto bg-beast-800 rounded-2xl border border-beast-700border">
+                    <table class="w-full text-left text-xs">
+                        <thead class="bg-beast-900/90 text-gray-400 uppercase text-[10px] tracking-wider border-b border-gray-700">
+                            <tr>
+                                <th class="p-3.5">Product</th>
+                                <th class="p-3.5">Category</th>
+                                <th class="p-3.5">Selling Price</th>
+                                <th class="p-3.5">MRP</th>
+                                <th class="p-3.5">Stock</th>
+                                <th class="p-3.5 text-right">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-products-table" class="divide-y divide-gray-800 text-gray-200">
+                            <!-- Injected dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="admin-content-orders" class="hidden space-y-4">
+                <div class="overflow-x-auto bg-beast-800 rounded-2xl border border-beast-700border">
+                    <table class="w-full text-left text-xs">
+                        <thead class="bg-beast-900/90 text-gray-400 uppercase text-[10px] tracking-wider border-b border-gray-700">
+                            <tr>
+                                <th class="p-3.5">Order ID</th>
+                                <th class="p-3.5">Customer</th>
+                                <th class="p-3.5">Amount</th>
+                                <th class="p-3.5">Status</th>
+                                <th class="p-3.5">Date</th>
+                                <th class="p-3.5 text-right">Update Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-orders-table" class="divide-y divide-gray-800 text-gray-200">
+                            <!-- Injected dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="admin-content-coupons" class="hidden space-y-4">
+                <div class="bg-beast-800 p-5 rounded-2xl border border-beast-700border space-y-3 max-w-md">
+                    <h3 class="text-sm font-bold text-white">Create Active Promo Coupon</h3>
+                    <div class="space-y-2 text-xs">
+                        <input type="text" id="coupon-code-input" placeholder="Coupon Code (e.g. BEAST20)" class="w-full bg-beast-900 border border-gray-700 rounded-xl p-2.5 text-white uppercase font-bold">
+                        <input type="number" id="coupon-discount-input" placeholder="Discount Percent (%)" class="w-full bg-beast-900 border border-gray-700 rounded-xl p-2.5 text-white">
+                        <button onclick="addNewCoupon()" class="w-full py-2.5 bg-beast-500 text-black font-extrabold rounded-xl">Add Active Coupon</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ================= CART DRAWER OVERLAY ================= -->
+    <div id="cart-drawer-overlay" class="fixed inset-0 bg-black/70 z-50 hidden transition-opacity" onclick="toggleCartDrawer(false)"></div>
+    <div id="cart-drawer" class="fixed top-0 right-0 bottom-0 w-full max-w-md bg-beast-800 z-50 transform translate-x-full transition-transform duration-300 flex flex-col border-l border-beast-700border">
+        <div class="p-4 border-b border-gray-700 flex items-center justify-between">
+            <h2 class="text-base font-extrabold text-white uppercase flex items-center gap-2">
+                <i class="fa-solid fa-bag-shopping text-beast-500"></i> Shopping Bag
+            </h2>
+            <button onclick="toggleCartDrawer(false)" class="text-gray-400 hover:text-white p-2">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+        </div>
+
+        <!-- Cart Items List -->
+        <div id="cart-items-container" class="flex-1 overflow-y-auto p-4 space-y-3">
+            <!-- Items Injected dynamically -->
+        </div>
+
+        <!-- Cart Footer Summary -->
+        <div class="p-4 bg-beast-900 border-t border-gray-800 space-y-3">
+            <!-- Coupon Code Entry -->
+            <div class="flex gap-2">
+                <input type="text" id="cart-coupon-code" placeholder="Promo Code (BEAST10)" class="bg-beast-800 border border-gray-700 text-xs rounded-xl px-3 py-2 text-white uppercase flex-1">
+                <button onclick="applyCoupon()" class="bg-beast-800 hover:bg-gray-700 border border-beast-500 text-beast-500 text-xs font-bold px-3 py-2 rounded-xl">Apply</button>
+            </div>
+            <div id="coupon-status" class="text-[11px] hidden font-semibold"></div>
+
+            <div class="space-y-1.5 text-xs text-gray-400">
+                <div class="flex justify-between"><span>Subtotal</span><span id="cart-subtotal-val" class="text-white">₹0</span></div>
+                <div class="flex justify-between text-emerald-400"><span>Coupon Discount</span><span id="cart-discount-val">-₹0</span></div>
+                <div class="flex justify-between"><span>Express Shipping</span><span class="text-emerald-400">FREE</span></div>
+                <div class="flex justify-between text-sm font-extrabold text-white pt-2 border-t border-gray-800">
+                    <span>Total Amount</span>
+                    <span id="cart-total-val" class="text-beast-500">₹0</span>
+                </div>
+            </div>
+
+            <button onclick="startCheckout()" class="w-full py-3.5 bg-gradient-to-r from-beast-500 to-orange-500 hover:opacity-95 text-black font-extrabold rounded-xl text-xs uppercase tracking-wider shadow-lg shadow-beast-500/20">
+                Proceed To Checkout
+            </button>
+        </div>
+    </div>
+
+    <!-- ================= CHECKOUT MODAL ================= -->
+    <div id="checkout-modal" class="fixed inset-0 z-50 bg-black/80 hidden flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-beast-800 border border-beast-700border w-full max-w-xl rounded-3xl p-6 space-y-6 max-h-[90vh] overflow-y-auto relative">
+            <button onclick="closeCheckout()" class="absolute top-4 right-4 text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+            
+            <h2 class="text-xl font-black text-white uppercase flex items-center gap-2">
+                <i class="fa-solid fa-credit-card text-beast-500"></i> Checkout Order
+            </h2>
+
+            <!-- Step Indicators -->
+            <div class="flex items-center justify-between border-b border-gray-700 pb-4 text-xs font-bold">
+                <span id="chk-step-1" class="text-beast-500">1. Address</span>
+                <i class="fa-solid fa-chevron-right text-gray-600 text-[10px]"></i>
+                <span id="chk-step-2" class="text-gray-500">2. Review</span>
+                <i class="fa-solid fa-chevron-right text-gray-600 text-[10px]"></i>
+                <span id="chk-step-3" class="text-gray-500">3. Payment</span>
+            </div>
+
+            <!-- Address Step Form -->
+            <div id="chk-section-address" class="space-y-3 text-xs">
+                <div>
+                    <label class="block text-gray-300 font-semibold mb-1">Full Name</label>
+                    <input type="text" id="chk-name" value="Alex Mercer" class="w-full bg-beast-900 border border-gray-700 rounded-xl p-2.5 text-white">
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-gray-300 font-semibold mb-1">Mobile Number</label>
+                        <input type="text" id="chk-phone" value="9876543210" class="w-full bg-beast-900 border border-gray-700 rounded-xl p-2.5 text-white">
+                    </div>
+                    <div>
+                        <label class="block text-gray-300 font-semibold mb-1">Pincode</label>
+                        <input type="text" id="chk-pincode" value="201301" class="w-full bg-beast-900 border border-gray-700 rounded-xl p-2.5 text-white">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-gray-300 font-semibold mb-1">House / Street Address</label>
+                    <input type="text" id="chk-address" value="Plot 42, Cyber Tech Park, Sector 62" class="w-full bg-beast-900 border border-gray-700 rounded-xl p-2.5 text-white">
+                </div>
+                <button onclick="goToCheckoutStep(2)" class="w-full py-3 bg-beast-500 text-black font-extrabold rounded-xl mt-2">Continue to Order Review</button>
+            </div>
+
+            <!-- Review Step -->
+            <div id="chk-section-review" class="hidden space-y-4 text-xs">
+                <div id="chk-review-items" class="bg-beast-900/60 p-3 rounded-xl max-h-40 overflow-y-auto divide-y divide-gray-800"></div>
+                <div class="bg-beast-900/60 p-3 rounded-xl space-y-1">
+                    <p class="font-bold text-gray-300">Delivery Address:</p>
+                    <p id="chk-review-address-text" class="text-gray-400"></p>
+                </div>
+                <div class="flex justify-between text-sm font-bold text-white pt-2 border-t border-gray-700">
+                    <span>Payable Total</span>
+                    <span id="chk-review-total" class="text-beast-500">₹0</span>
+                </div>
+                <button onclick="goToCheckoutStep(3)" class="w-full py-3 bg-beast-500 text-black font-extrabold rounded-xl">Proceed to Secure Payment</button>
+            </div>
+
+            <!-- Payment Step Mock (Razorpay overlay style) -->
+            <div id="chk-section-payment" class="hidden space-y-4 text-xs">
+                <div class="p-4 border border-beast-500/40 rounded-2xl bg-beast-900/80 space-y-3">
+                    <p class="font-bold text-white text-center">Select Payment Gateway Option</p>
+                    <div class="space-y-2">
+                        <label class="flex items-center gap-3 p-3 bg-beast-800 border border-gray-700 rounded-xl cursor-pointer hover:border-beast-500">
+                            <input type="radio" name="pay-method" value="UPI" checked class="accent-beast-500">
+                            <i class="fa-solid fa-qrcode text-beast-500 text-lg"></i>
+                            <div>
+                                <p class="font-bold text-white">UPI Instant (GPay / PhonePe / Paytm)</p>
+                                <p class="text-[10px] text-gray-400">Zero Gateway Charge</p>
+                            </div>
+                        </label>
+                        <label class="flex items-center gap-3 p-3 bg-beast-800 border border-gray-700 rounded-xl cursor-pointer hover:border-beast-500">
+                            <input type="radio" name="pay-method" value="Card" class="accent-beast-500">
+                            <i class="fa-solid fa-credit-card text-beast-500 text-lg"></i>
+                            <div>
+                                <p class="font-bold text-white">Credit / Debit Card</p>
+                                <p class="text-[10px] text-gray-400">Visa, Mastercard, RuPay</p>
+                            </div>
+                        </label>
+                        <label class="flex items-center gap-3 p-3 bg-beast-800 border border-gray-700 rounded-xl cursor-pointer hover:border-beast-500">
+                            <input type="radio" name="pay-method" value="COD" class="accent-beast-500">
+                            <i class="fa-solid fa-money-bill-wave text-beast-500 text-lg"></i>
+                            <div>
+                                <p class="font-bold text-white">Cash on Delivery</p>
+                                <p class="text-[10px] text-gray-400">Pay on Delivery</p>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+                <button onclick="executeSimulatedPayment()" class="w-full py-3.5 bg-gradient-to-r from-emerald-500 to-teal-600 text-black font-extrabold rounded-xl shadow-lg shadow-emerald-500/20 text-sm uppercase">
+                    Pay Now & Confirm Order
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= ADD / EDIT PRODUCT ADMIN MODAL ================= -->
+    <div id="admin-product-modal" class="fixed inset-0 z-50 bg-black/80 hidden flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-beast-800 border border-beast-700border w-full max-w-lg rounded-3xl p-6 space-y-4 max-h-[90vh] overflow-y-auto relative text-xs">
+            <button onclick="closeProductModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+            <h2 id="product-modal-title" class="text-base font-bold text-white uppercase">Add New Product</h2>
+
+            <form id="product-form" onsubmit="handleProductFormSubmit(event)" class="space-y-3">
+                <input type="hidden" id="edit-prod-id">
+                <div>
+                    <label class="block text-gray-300 font-semibold mb-1">Product Title</label>
+                    <input type="text" id="prod-title" required class="w-full bg-beast-900 border border-gray-700 rounded-xl p-2.5 text-white">
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-gray-300 font-semibold mb-1">Brand</label>
+                        <select id="prod-brand" class="w-full bg-beast-900 border border-gray-700 rounded-xl p-2.5 text-white">
+                            <option value="Apple">Apple</option>
+                            <option value="Samsung">Samsung</option>
+                            <option value="Beast Gear">Beast Gear</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-gray-300 font-semibold mb-1">Category</label>
+                        <select id="prod-category" class="w-full bg-beast-900 border border-gray-700 rounded-xl p-2.5 text-white">
+                            <option value="iPhone">iPhone</option>
+                            <option value="Samsung">Samsung</option>
+                            <option value="Chargers">Chargers</option>
+                            <option value="Cases">Cases</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="grid grid-cols-3 gap-3">
+                    <div>
+                        <label class="block text-gray-300 font-semibold mb-1">Selling Price (₹)</label>
+                        <input type="number" id="prod-price" required class="w-full bg-beast-900 border border-gray-700 rounded-xl p-2.5 text-white">
+                    </div>
+                    <div>
+                        <label class="block text-gray-300 font-semibold mb-1">MRP (₹)</label>
+                        <input type="number" id="prod-mrp" required class="w-full bg-beast-900 border border-gray-700 rounded-xl p-2.5 text-white">
+                    </div>
+                    <div>
+                        <label class="block text-gray-300 font-semibold mb-1">Stock</label>
+                        <input type="number" id="prod-stock" required class="w-full bg-beast-900 border border-gray-700 rounded-xl p-2.5 text-white">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-gray-300 font-semibold mb-1">Image Keyword/URL</label>
+                    <input type="text" id="prod-img" placeholder="e.g. iphone16pro, s25ultra, charger" required class="w-full bg-beast-900 border border-gray-700 rounded-xl p-2.5 text-white">
+                </div>
+                <button type="submit" class="w-full py-3 bg-beast-500 text-black font-extrabold rounded-xl mt-2 uppercase">Save Product</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ================= FOOTER ================= -->
+    <footer class="bg-beast-950 border-t border-beast-700border mt-16 text-xs text-gray-400">
+        <div class="max-w-7xl mx-auto px-4 py-10 grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div class="space-y-3">
+                <div class="flex items-center gap-2">
+                    <span class="text-lg font-black text-white uppercase tracking-wider">BEAST<span class="text-beast-500">.</span> ACCESSORIES</span>
+                </div>
+                <p class="text-gray-500 leading-relaxed">India's premium mobile-first e-commerce destination for official flagships, GaN power gear, and military armor protection.</p>
+            </div>
+            <div>
+                <h4 class="font-bold text-white uppercase mb-3 text-xs">Categories</h4>
+                <ul class="space-y-2">
+                    <li><a href="#" onclick="filterCategory('iPhone')" class="hover:text-beast-500">iPhone Series</a></li>
+                    <li><a href="#" onclick="filterCategory('Samsung')" class="hover:text-beast-500">Samsung Ultra</a></li>
+                    <li><a href="#" onclick="filterCategory('Chargers')" class="hover:text-beast-500">Fast Chargers</a></li>
+                    <li><a href="#" onclick="filterCategory('Cases')" class="hover:text-beast-500">Armor Cases</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-bold text-white uppercase mb-3 text-xs">Customer Policy</h4>
+                <ul class="space-y-2">
+                    <li><span class="hover:text-beast-500 cursor-pointer">7-Day Replacement Policy</span></li>
+                    <li><span class="hover:text-beast-500 cursor-pointer">Warranty Claim Center</span></li>
+                    <li><span class="hover:text-beast-500 cursor-pointer">Terms & Conditions</span></li>
+                    <li><span class="hover:text-beast-500 cursor-pointer">Privacy & Security</span></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-bold text-white uppercase mb-3 text-xs">Help & Support</h4>
+                <p class="text-gray-500 mb-2">Need assistance with your flagship order?</p>
+                <p class="font-semibold text-white">support@beastaccessories.in</p>
+                <p class="text-beast-500 font-bold mt-1">+91 1800-BEAST-GEAR</p>
+            </div>
+        </div>
+        <div class="border-t border-gray-800 text-center py-4 text-[11px] text-gray-500">
+            © 2026 BEAST ACCESSORIES. All rights reserved. Built for ultra-fast mobile shopping.
+        </div>
+    </footer>
+
+    <!-- Mobile Sticky Bottom Navigation -->
+    <nav class="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-beast-900/95 backdrop-blur-md border-t border-beast-700border px-2 py-2 flex justify-around items-center text-[10px]">
+        <button onclick="navigateTo('home')" class="mobile-nav-btn text-beast-500 flex flex-col items-center gap-1">
+            <i class="fa-solid fa-house text-base"></i>
+            <span>Home</span>
+        </button>
+        <button onclick="filterCategory('All')" class="mobile-nav-btn text-gray-400 flex flex-col items-center gap-1">
+            <i class="fa-solid fa-grid-2 text-base"></i>
+            <span>Catalog</span>
+        </button>
+        <button onclick="toggleCartDrawer(true)" class="mobile-nav-btn text-gray-400 flex flex-col items-center gap-1 relative">
+            <i class="fa-solid fa-bag-shopping text-base"></i>
+            <span>Cart</span>
+            <span id="mobile-cart-badge" class="hidden absolute -top-1 right-2 bg-beast-500 text-black text-[9px] font-extrabold w-3.5 h-3.5 rounded-full flex items-center justify-center">0</span>
+        </button>
+        <button onclick="navigateTo('account')" class="mobile-nav-btn text-gray-400 flex flex-col items-center gap-1">
+            <i class="fa-solid fa-clock-rotate-left text-base"></i>
+            <span>Orders</span>
+        </button>
+        <button onclick="toggleAdminPanel()" class="mobile-nav-btn text-amber-400 flex flex-col items-center gap-1">
+            <i class="fa-solid fa-shield-halved text-base"></i>
+            <span>Admin</span>
+        </button>
+    </nav>
+
+    <script>
+        /* ================= SEED INITIAL DATA ================= */
+        const DEFAULT_PRODUCTS = [
+            {
+                id: 'prod_1',
+                brand: 'Apple',
+                title: 'iPhone 16 Pro Max 256GB Titanium Black',
+                category: 'iPhone',
+                sellingPrice: 139900,
+                mrp: 144900,
+                stock: 12,
+                rating: 4.9,
+                reviewsCount: 328,
+                storages: ['256GB', '512GB', '1TB'],
+                colors: ['Titanium Black', 'Natural Titanium', 'Titanium White'],
+                imgKeyword: 'iphone16pro',
+                specs: {
+                    Processor: 'A18 Pro Chip (3nm)',
+                    Display: '6.9" Super Retina XDR OLED ProMotion',
+                    Camera: '48MP Main + 48MP Ultra-Wide + 5x Telephoto',
+                    Battery: 'Up to 33 hrs video playback'
+                },
+                boxItems: ['iPhone 16 Pro Max', 'USB-C Charge Cable (1m)', 'Documentation']
+            },
+            {
+                id: 'prod_2',
+                brand: 'Samsung',
+                title: 'Samsung Galaxy S25 Ultra 5G 512GB',
+                category: 'Samsung',
+                sellingPrice: 129999,
+                mrp: 139999,
+                stock: 8,
+                rating: 4.8,
+                reviewsCount: 210,
+                storages: ['256GB', '512GB', '1TB'],
+                colors: ['Titanium Gray', 'Titanium Black', 'Titanium Violet'],
+                imgKeyword: 's25ultra',
+                specs: {
+                    Processor: 'Snapdragon 8 Elite for Galaxy',
+                    Display: '6.8" Dynamic AMOLED 2X 120Hz',
+                    Camera: '200MP Quad Camera with AI Zoom',
+                    Battery: '5000 mAh with 45W Fast Charging'
+                },
+                boxItems: ['Galaxy S25 Ultra', 'S-Pen', 'Type-C to C Cable', 'SIM Eject Tool']
+            },
+            {
+                id: 'prod_3',
+                brand: 'Beast Gear',
+                title: 'Beast GaN 65W Ultra-Fast Triple Port Charger',
+                category: 'Chargers',
+                sellingPrice: 2499,
+                mrp: 4999,
+                stock: 45,
+                rating: 4.7,
+                reviewsCount: 512,
+                storages: ['Standard'],
+                colors: ['Matte Black', 'Cyber White'],
+                imgKeyword: 'charger65w',
+                specs: {
+                    Power: '65W Max Output (PD 3.0 / PPS)',
+                    Ports: '2x USB-C + 1x USB-A',
+                    Tech: 'Gallium Nitride (GaN III) Thermal Guard'
+                },
+                boxItems: ['Beast 65W GaN Adapter', '100W Braided Type-C Cable']
+            },
+            {
+                id: 'prod_4',
+                brand: 'Beast Gear',
+                title: 'Beast MagSafe Magnetic PowerBank 10000mAh',
+                category: 'Chargers',
+                sellingPrice: 2999,
+                mrp: 5999,
+                stock: 22,
+                rating: 4.8,
+                reviewsCount: 189,
+                storages: ['10000mAh'],
+                colors: ['Midnight Black', 'Metallic Silver'],
+                imgKeyword: 'powerbank',
+                specs: {
+                    Capacity: '10000mAh High-Density Polymer',
+                    Wireless: '15W MagSafe Fast Wireless Charging',
+                    Wired: '20W PD Output USB-C'
+                },
+                boxItems: ['MagSafe PowerBank', 'Type-C Cable', 'User Manual']
+            },
+            {
+                id: 'prod_5',
+                brand: 'Beast Gear',
+                title: 'Beast Armor Shield Military Grade Shockproof Case',
+                category: 'Cases',
+                sellingPrice: 999,
+                mrp: 2499,
+                stock: 60,
+                rating: 4.6,
+                reviewsCount: 420,
+                storages: ['iPhone 16 Pro', 'Samsung S25 Ultra'],
+                colors: ['Dark Smoke', 'Clear Crystal'],
+                imgKeyword: 'case',
+                specs: {
+                    Protection: '12ft Drop Tested Military Grade',
+                    Material: 'Polycarbonate + TPU Impact Bumpers',
+                    Feature: 'Built-in MagSafe Ring & Kickstand'
+                },
+                boxItems: ['Beast Armor Case']
+            }
+        ];
+
+        /* ================= APPLICATION STATE ================= */
+        let storeState = {
+            products: JSON.parse(localStorage.getItem('beast_products')) || DEFAULT_PRODUCTS,
+            cart: JSON.parse(localStorage.getItem('beast_cart')) || [],
+            wishlist: JSON.parse(localStorage.getItem('beast_wishlist')) || [],
+            orders: JSON.parse(localStorage.getItem('beast_orders')) || [],
+            coupons: JSON.parse(localStorage.getItem('beast_coupons')) || [
+                { code: 'BEAST10', discountPercent: 10 },
+                { code: 'ULTRA500', flatDiscount: 500 }
+            ],
+            activeCategory: 'All',
+            activeFilters: { brand: 'All', maxPrice: 150000, storage: 'All', inStock: false },
+            searchQuery: '',
+            appliedCoupon: null,
+            activeProductDetail: null
+        };
+
+        // SVG Visual Generators for Realistic Render without External Images
+        function getSVGProductVisual(keyword) {
+            if (keyword.includes('iphone')) {
+                return `<svg class="w-28 h-44 text-gray-200" viewBox="0 0 100 180" fill="none" stroke="currentColor">
+                    <rect x="5" y="5" width="90" height="170" rx="18" stroke-width="4" fill="#111827"/>
+                    <rect x="35" y="10" width="30" height="6" rx="3" fill="#000"/>
+                    <circle cx="35" cy="35" r="12" fill="#1f2937" stroke="#374151" stroke-width="2"/>
+                    <circle cx="65" cy="35" r="12" fill="#1f2937" stroke="#374151" stroke-width="2"/>
+                    <circle cx="50" cy="60" r="12" fill="#1f2937" stroke="#374151" stroke-width="2"/>
+                    <path d="M40 120 L60 120" stroke="#f59e0b" stroke-width="3" stroke-linecap="round"/>
+                </svg>`;
+            } else if (keyword.includes('s25') || keyword.includes('s24') || keyword.includes('samsung')) {
+                return `<svg class="w-28 h-44 text-amber-500" viewBox="0 0 100 180" fill="none" stroke="currentColor">
+                    <rect x="5" y="5" width="90" height="170" rx="8" stroke-width="4" fill="#030712"/>
+                    <circle cx="50" cy="12" r="3" fill="#374151"/>
+                    <rect x="15" y="30" width="16" height="16" rx="8" fill="#1f2937" stroke="#f59e0b" stroke-width="2"/>
+                    <rect x="15" y="52" width="16" height="16" rx="8" fill="#1f2937" stroke="#f59e0b" stroke-width="2"/>
+                    <rect x="15" y="74" width="16" height="16" rx="8" fill="#1f2937" stroke="#f59e0b" stroke-width="2"/>
+                    <text x="30" y="140" fill="#f59e0b" font-size="10" font-weight="bold">S25 ULTRA</text>
+                </svg>`;
+            } else if (keyword.includes('charger')) {
+                return `<svg class="w-24 h-24 text-amber-400" viewBox="0 0 100 100" fill="none" stroke="currentColor">
+                    <rect x="20" y="25" width="60" height="50" rx="8" fill="#1f2937" stroke-width="3"/>
+                    <rect x="35" y="10" width="6" height="15" fill="#f59e0b"/>
+                    <rect x="59" y="10" width="6" height="15" fill="#f59e0b"/>
+                    <circle cx="50" cy="50" r="10" stroke="#f59e0b" stroke-width="2"/>
+                </svg>`;
+            } else if (keyword.includes('powerbank')) {
+                return `<svg class="w-24 h-32 text-amber-500" viewBox="0 0 80 120" fill="none" stroke="currentColor">
+                    <rect x="10" y="10" width="60" height="100" rx="10" fill="#111827" stroke-width="3"/>
+                    <circle cx="40" cy="50" r="18" stroke="#f59e0b" stroke-width="3" stroke-dasharray="4 2"/>
+                    <rect x="30" y="95" width="20" height="4" rx="2" fill="#10b981"/>
+                </svg>`;
+            } else {
+                return `<svg class="w-24 h-32 text-gray-400" viewBox="0 0 80 120" fill="none" stroke="currentColor">
+                    <rect x="10" y="10" width="60" height="100" rx="12" fill="#1f2937" stroke-width="3"/>
+                    <circle cx="40" cy="60" r="15" fill="#374151"/>
+                </svg>`;
+            }
+        }
+
+        /* ================= PERSISTENCE HELPERS ================= */
+        function saveState() {
+            localStorage.setItem('beast_products', JSON.stringify(storeState.products));
+            localStorage.setItem('beast_cart', JSON.stringify(storeState.cart));
+            localStorage.setItem('beast_wishlist', JSON.stringify(storeState.wishlist));
+            localStorage.setItem('beast_orders', JSON.stringify(storeState.orders));
+            localStorage.setItem('beast_coupons', JSON.stringify(storeState.coupons));
+            updateBadges();
+        }
+
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = `px-4 py-2.5 rounded-xl text-xs font-bold shadow-2xl flex items-center gap-2 transition-all transform translate-y-2 ${
+                type === 'success' ? 'bg-beast-500 text-black' : 'bg-rose-600 text-white'
+            }`;
+            toast.innerHTML = `<i class="fa-solid ${type === 'success' ? 'fa-circle-check' : 'fa-circle-exclamation'}"></i> ${message}`;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.classList.add('opacity-0');
+                setTimeout(() => toast.remove(), 300);
+            }, 2500);
+        }
+
+        /* ================= RENDER ENGINE ================= */
+        function renderProducts() {
+            const grid = document.getElementById('product-grid');
+            const noProds = document.getElementById('no-products-view');
+            grid.innerHTML = '';
+
+            let filtered = storeState.products.filter(p => {
+                // Category Filter
+                if (storeState.activeCategory !== 'All' && storeState.activeCategory !== 'Deals') {
+                    if (p.category !== storeState.activeCategory) return false;
+                }
+                if (storeState.activeCategory === 'Deals') {
+                    const discount = Math.round(((p.mrp - p.sellingPrice) / p.mrp) * 100);
+                    if (discount < 10) return false;
+                }
+                // Brand Filter
+                if (storeState.activeFilters.brand !== 'All' && p.brand !== storeState.activeFilters.brand) return false;
+                // Price Filter
+                if (p.sellingPrice > storeState.activeFilters.maxPrice) return false;
+                // In Stock Filter
+                if (storeState.activeFilters.inStock && p.stock <= 0) return false;
+                // Search Query Filter
+                if (storeState.searchQuery) {
+                    const q = storeState.searchQuery.toLowerCase();
+                    const match = p.title.toLowerCase().includes(q) || p.brand.toLowerCase().includes(q) || p.category.toLowerCase().includes(q);
+                    if (!match) return false;
+                }
+                return true;
+            });
+
+            // Sort logic
+            const sortVal = document.getElementById('sort-select').value;
+            if (sortVal === 'price-low') filtered.sort((a, b) => a.sellingPrice - b.sellingPrice);
+            if (sortVal === 'price-high') filtered.sort((a, b) => b.sellingPrice - a.sellingPrice);
+            if (sortVal === 'rating') filtered.sort((a, b) => b.rating - a.rating);
+
+            if (filtered.length === 0) {
+                grid.classList.add('hidden');
+                noProds.classList.remove('hidden');
+                return;
+            } else {
+                grid.classList.remove('hidden');
+                noProds.classList.add('hidden');
+            }
+
+            filtered.forEach(p => {
+                const discountPercent = Math.round(((p.mrp - p.sellingPrice) / p.mrp) * 100);
+                const isWishlisted = storeState.wishlist.some(w => w.id === p.id);
+
+                const card = document.createElement('div');
+                card.className = "bg-beast-800/90 border border-beast-700border rounded-2xl p-3 sm:p-4 flex flex-col justify-between hover:border-beast-500 transition-all duration-300 group relative";
+                
+                card.innerHTML = `
+                    <div>
+                        <!-- Top Badges & Wishlist -->
+                        <div class="flex items-center justify-between gap-1 mb-2">
+                            <span class="bg-beast-500/10 text-beast-500 border border-beast-500/20 text-[9px] font-extrabold px-2 py-0.5 rounded-md uppercase">
+                                ${discountPercent}% OFF
+                            </span>
+                            <button onclick="toggleWishlist('${p.id}')" class="text-gray-400 hover:text-cyber-pink p-1">
+                                <i class="${isWishlisted ? 'fa-solid fa-heart text-cyber-pink' : 'fa-regular fa-heart'} text-sm"></i>
+                            </button>
+                        </div>
+
+                        <!-- Visual Graphic Image -->
+                        <div onclick="openProductDetail('${p.id}')" class="bg-beast-900/80 rounded-xl p-4 mb-3 flex items-center justify-center min-h-[140px] cursor-pointer group-hover:scale-105 transition-transform">
+                            ${getSVGProductVisual(p.imgKeyword)}
+                        </div>
+
+                        <!-- Content -->
+                        <p class="text-[10px] font-extrabold text-beast-500 uppercase">${p.brand}</p>
+                        <h3 onclick="openProductDetail('${p.id}')" class="text-xs font-bold text-gray-100 line-clamp-2 cursor-pointer hover:text-beast-500 mt-0.5">
+                            ${p.title}
+                        </h3>
+
+                        <!-- Rating & Stock -->
+                        <div class="flex items-center gap-1.5 mt-1.5 text-[10px]">
+                            <span class="bg-amber-500/10 text-amber-400 font-bold px-1.5 py-0.5 rounded flex items-center gap-0.5">
+                                ${p.rating} <i class="fa-solid fa-star text-[8px]"></i>
+                            </span>
+                            <span class="text-gray-500">(${p.reviewsCount})</span>
+                            ${p.stock < 5 ? `<span class="text-rose-400 font-bold ml-auto">Only ${p.stock} Left</span>` : ''}
+                        </div>
+                    </div>
+
+                    <!-- Price & Actions Footer -->
+                    <div class="mt-3 pt-2 border-t border-gray-800">
+                        <div class="flex items-baseline gap-1.5 mb-2">
+                            <span class="text-sm font-black text-white">₹${p.sellingPrice.toLocaleString('en-IN')}</span>
+                            <span class="text-[10px] text-gray-500 line-through">₹${p.mrp.toLocaleString('en-IN')}</span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-1.5">
+                            <button onclick="addToCart('${p.id}')" class="py-2 bg-beast-900 hover:bg-gray-700 text-white border border-gray-700 text-[11px] font-bold rounded-xl transition-all flex items-center justify-center gap-1">
+                                <i class="fa-solid fa-cart-plus"></i> Add
+                            </button>
+                            <button onclick="buyNowDirect('${p.id}')" class="py-2 bg-beast-500 hover:bg-beast-600 text-black text-[11px] font-extrabold rounded-xl transition-all">
+                                Buy
+                            </button>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        /* ================= FILTER & SEARCH LOGIC ================= */
+        function filterCategory(cat) {
+            storeState.activeCategory = cat;
+            document.getElementById('catalog-title').innerText = cat === 'All' ? '🔥 Trending Beast Deals' : `${cat} Collection`;
+            renderProducts();
+            navigateTo('home');
+        }
+
+        function updatePriceFilter(val) {
+            storeState.activeFilters.maxPrice = Number(val);
+            document.getElementById('price-range-val').innerText = `₹${Number(val).toLocaleString('en-IN')}`;
+            renderProducts();
+        }
+
+        function resetFilters() {
+            storeState.activeFilters = { brand: 'All', maxPrice: 150000, storage: 'All', inStock: false };
+            storeState.searchQuery = '';
+            document.getElementById('price-range').value = 150000;
+            document.getElementById('price-range-val').innerText = '₹1,50,000';
+            document.getElementById('desktop-search').value = '';
+            document.getElementById('mobile-search').value = '';
+            renderProducts();
+        }
+
+        function handleSearchInput(query) {
+            storeState.searchQuery = query;
+            const suggestionsBox = document.getElementById('search-suggestions');
+            
+            if (query.length > 1) {
+                const matches = storeState.products.filter(p => p.title.toLowerCase().includes(query.toLowerCase())).slice(0, 4);
+                if (matches.length > 0) {
+                    suggestionsBox.innerHTML = matches.map(m => `
+                        <div onclick="openProductDetail('${m.id}'); clearSearch()" class="p-3 hover:bg-beast-900 cursor-pointer flex items-center justify-between border-b border-gray-800 text-xs">
+                            <span class="font-semibold text-white">${m.title}</span>
+                            <span class="text-beast-500 font-bold">₹${m.sellingPrice.toLocaleString('en-IN')}</span>
+                        </div>
+                    `).join('');
+                    suggestionsBox.classList.remove('hidden');
+                } else {
+                    suggestionsBox.classList.add('hidden');
+                }
+            } else {
+                suggestionsBox.classList.add('hidden');
+            }
+            renderProducts();
+        }
+
+        function clearSearch() {
+            storeState.searchQuery = '';
+            document.getElementById('desktop-search').value = '';
+            document.getElementById('mobile-search').value = '';
+            document.getElementById('search-suggestions').classList.add('hidden');
+            renderProducts();
+        }
+
+        /* ================= PRODUCT DETAIL LOGIC ================= */
+        function openProductDetail(id) {
+            const product = storeState.products.find(p => p.id === id);
+            if (!product) return;
+            storeState.activeProductDetail = product;
+
+            document.getElementById('detail-brand').innerText = product.brand;
+            document.getElementById('detail-title').innerText = product.title;
+            document.getElementById('detail-selling-price').innerText = `₹${product.sellingPrice.toLocaleString('en-IN')}`;
+            document.getElementById('detail-mrp').innerText = `₹${product.mrp.toLocaleString('en-IN')}`;
+            const discount = Math.round(((product.mrp - product.sellingPrice) / product.mrp) * 100);
+            document.getElementById('detail-discount-badge').innerText = `${discount}% OFF`;
+
+            // Thumbnails & main visual
+            const thumbContainer = document.getElementById('detail-thumbnails');
+            thumbContainer.innerHTML = [1, 2, 3].map(() => `
+                <div class="w-14 h-14 bg-beast-900 border border-gray-700 rounded-xl p-2 flex items-center justify-center cursor-pointer hover:border-beast-500">
+                    ${getSVGProductVisual(product.imgKeyword)}
+                </div>
+            `).join('');
+
+            document.getElementById('detail-main-img').parentNode.replaceChild(
+                document.createRange().createContextualFragment(`<div id="detail-main-img" class="flex justify-center">${getSVGProductVisual(product.imgKeyword)}</div>`),
+                document.getElementById('detail-main-img')
+            );
+
+            // Rating Stars
+            const starsContainer = document.getElementById('detail-stars');
+            starsContainer.innerHTML = Array(5).fill(0).map((_, i) => `<i class="fa-solid fa-star ${i < Math.floor(product.rating) ? 'text-amber-400' : 'text-gray-600'}"></i>`).join('');
+            document.getElementById('detail-rating-text').innerText = product.rating;
+            document.getElementById('detail-reviews-count').innerText = `${product.reviewsCount} Customer Reviews`;
+
+            // Colors & Storages Swatches
+            document.getElementById('detail-colors').innerHTML = product.colors.map(c => `
+                <button class="px-3 py-1.5 rounded-lg border border-gray-700 text-xs font-semibold text-gray-200 bg-beast-900 hover:border-beast-500 focus:border-beast-500 focus:text-beast-500">${c}</button>
+            `).join('');
+
+            document.getElementById('detail-storages').innerHTML = product.storages.map(s => `
+                <button class="px-3 py-1.5 rounded-lg border border-gray-700 text-xs font-semibold text-gray-200 bg-beast-900 hover:border-beast-500 focus:border-beast-500 focus:text-beast-500">${s}</button>
+            `).join('');
+
+            // Specs Grid
+            const specsGrid = document.getElementById('detail-specs-grid');
+            specsGrid.innerHTML = Object.entries(product.specs || {}).map(([k, v]) => `
+                <div class="bg-beast-900/50 p-2.5 rounded-xl border border-gray-800">
+                    <span class="text-gray-500 block text-[10px] uppercase font-bold">${k}</span>
+                    <span class="text-gray-200 font-semibold">${v}</span>
+                </div>
+            `).join('');
+
+            // Box Items
+            document.getElementById('detail-box-items').innerHTML = (product.boxItems || []).map(item => `<li>${item}</li>`).join('');
+
+            // Action Button Binding
+            document.getElementById('detail-add-cart-btn').onclick = () => addToCart(product.id);
+            document.getElementById('detail-buy-now-btn').onclick = () => buyNowDirect(product.id);
+
+            navigateTo('product-detail');
+        }
+
+        function checkPincode() {
+            const val = document.getElementById('pincode-input').value;
+            const res = document.getElementById('pincode-result');
+            if (val.length === 6 && !isNaN(val)) {
+                res.innerText = `⚡ Express Delivery available by tomorrow to ${val}`;
+            } else {
+                res.innerText = 'Please enter a valid 6-digit Indian PIN Code.';
+            }
+        }
+
+        /* ================= CART & WISHLIST OPERATIONS ================= */
+        function addToCart(prodId) {
+            const prod = storeState.products.find(p => p.id === prodId);
+            if (!prod) return;
+
+            const existing = storeState.cart.find(c => c.id === prodId);
+            if (existing) {
+                existing.qty += 1;
+            } else {
+                storeState.cart.push({ ...prod, qty: 1 });
+            }
+            saveState();
+            renderCartDrawer();
+            showToast(`Added ${prod.title.slice(0, 20)}... to Cart`);
+        }
+
+        function buyNowDirect(prodId) {
+            addToCart(prodId);
+            toggleCartDrawer(false);
+            startCheckout();
+        }
+
+        function updateCartQty(prodId, delta) {
+            const item = storeState.cart.find(c => c.id === prodId);
+            if (!item) return;
+            item.qty += delta;
+            if (item.qty <= 0) {
+                storeState.cart = storeState.cart.filter(c => c.id !== prodId);
+            }
+            saveState();
+            renderCartDrawer();
+        }
+
+        function toggleWishlist(prodId) {
+            const index = storeState.wishlist.findIndex(w => w.id === prodId);
+            if (index > -1) {
+                storeState.wishlist.splice(index, 1);
+                showToast('Removed from Wishlist', 'error');
+            } else {
+                const prod = storeState.products.find(p => p.id === prodId);
+                if (prod) storeState.wishlist.push(prod);
+                showToast('Added to Wishlist');
+            }
+            saveState();
+            renderProducts();
+            renderAccountWishlist();
+        }
+
+        function toggleCartDrawer(open) {
+            const overlay = document.getElementById('cart-drawer-overlay');
+            const drawer = document.getElementById('cart-drawer');
+            if (open) {
+                renderCartDrawer();
+                overlay.classList.remove('hidden');
+                drawer.classList.remove('translate-x-full');
+            } else {
+                overlay.classList.add('hidden');
+                drawer.classList.add('translate-x-full');
+            }
+        }
+
+        function renderCartDrawer() {
+            const container = document.getElementById('cart-items-container');
+            container.innerHTML = '';
+
+            if (storeState.cart.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-12 text-gray-500 space-y-2">
+                        <i class="fa-solid fa-bag-shopping text-4xl mb-2 text-gray-700"></i>
+                        <p class="text-xs font-bold text-gray-300">Your shopping bag is empty</p>
+                        <p class="text-[10px]">Add flagships or accessories to continue</p>
+                    </div>
+                `;
+            } else {
+                storeState.cart.forEach(item => {
+                    const row = document.createElement('div');
+                    row.className = "bg-beast-900/80 border border-gray-800 rounded-2xl p-3 flex gap-3 items-center";
+                    row.innerHTML = `
+                        <div class="w-12 h-12 bg-beast-800 rounded-xl p-1 flex items-center justify-center">
+                            ${getSVGProductVisual(item.imgKeyword)}
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <h4 class="text-xs font-bold text-white truncate">${item.title}</h4>
+                            <p class="text-xs font-extrabold text-beast-500 mt-0.5">₹${item.sellingPrice.toLocaleString('en-IN')}</p>
+                        </div>
+                        <div class="flex items-center border border-gray-700 rounded-lg bg-beast-800 text-xs">
+                            <button onclick="updateCartQty('${item.id}', -1)" class="px-2 py-1 text-gray-400 hover:text-white">-</button>
+                            <span class="px-2 font-bold text-white">${item.qty}</span>
+                            <button onclick="updateCartQty('${item.id}', 1)" class="px-2 py-1 text-gray-400 hover:text-white">+</button>
+                        </div>
+                    `;
+                    container.appendChild(row);
+                });
+            }
+
+            // Calculations
+            const subtotal = storeState.cart.reduce((sum, i) => sum + (i.sellingPrice * i.qty), 0);
+            let discountVal = 0;
+            if (storeState.appliedCoupon) {
+                if (storeState.appliedCoupon.discountPercent) {
+                    discountVal = Math.round((subtotal * storeState.appliedCoupon.discountPercent) / 100);
+                } else if (storeState.appliedCoupon.flatDiscount) {
+                    discountVal = storeState.appliedCoupon.flatDiscount;
+                }
+            }
+
+            const total = Math.max(0, subtotal - discountVal);
+
+            document.getElementById('cart-subtotal-val').innerText = `₹${subtotal.toLocaleString('en-IN')}`;
+            document.getElementById('cart-discount-val').innerText = `-₹${discountVal.toLocaleString('en-IN')}`;
+            document.getElementById('cart-total-val').innerText = `₹${total.toLocaleString('en-IN')}`;
+        }
+
+        function applyCoupon() {
+            const code = document.getElementById('cart-coupon-code').value.trim().toUpperCase();
+            const statusEl = document.getElementById('coupon-status');
+            const found = storeState.coupons.find(c => c.code === code);
+
+            if (found) {
+                storeState.appliedCoupon = found;
+                statusEl.innerText = `✓ Coupon '${code}' Applied Successfully!`;
+                statusEl.className = "text-[11px] font-semibold text-emerald-400";
+            } else {
+                storeState.appliedCoupon = null;
+                statusEl.innerText = "❌ Invalid Promo Coupon Code";
+                statusEl.className = "text-[11px] font-semibold text-rose-400";
+            }
+            statusEl.classList.remove('hidden');
+            renderCartDrawer();
+        }
+
+        function updateBadges() {
+            const cartCount = storeState.cart.reduce((sum, i) => sum + i.qty, 0);
+            const wishCount = storeState.wishlist.length;
+
+            const cartBadge = document.getElementById('cart-badge');
+            const mobileCartBadge = document.getElementById('mobile-cart-badge');
+            const wishBadge = document.getElementById('wishlist-badge');
+
+            if (cartCount > 0) {
+                cartBadge.innerText = cartCount;
+                cartBadge.classList.remove('hidden');
+                mobileCartBadge.innerText = cartCount;
+                mobileCartBadge.classList.remove('hidden');
+            } else {
+                cartBadge.classList.add('hidden');
+                mobileCartBadge.classList.add('hidden');
+            }
+
+            if (wishCount > 0) {
+                wishBadge.innerText = wishCount;
+                wishBadge.classList.remove('hidden');
+            } else {
+                wishBadge.classList.add('hidden');
+            }
+        }
+
+        /* ================= CHECKOUT PIPELINE ================= */
+        function startCheckout() {
+            if (storeState.cart.length === 0) {
+                showToast('Your cart is empty', 'error');
+                return;
+            }
+            document.getElementById('checkout-modal').classList.remove('hidden');
+            goToCheckoutStep(1);
+        }
+
+        function closeCheckout() {
+            document.getElementById('checkout-modal').classList.add('hidden');
+        }
+
+        function goToCheckoutStep(step) {
+            const s1 = document.getElementById('chk-section-address');
+            const s2 = document.getElementById('chk-section-review');
+            const s3 = document.getElementById('chk-section-payment');
+
+            [s1, s2, s3].forEach(el => el.classList.add('hidden'));
+
+            if (step === 1) {
+                s1.classList.remove('hidden');
+            } else if (step === 2) {
+                // Populate review
+                const itemsContainer = document.getElementById('chk-review-items');
+                itemsContainer.innerHTML = storeState.cart.map(i => `
+                    <div class="flex justify-between py-1.5 text-xs">
+                        <span class="text-gray-300">${i.title} (x${i.qty})</span>
+                        <span class="font-bold text-white">₹${(i.sellingPrice * i.qty).toLocaleString('en-IN')}</span>
+                    </div>
+                `).join('');
+
+                const name = document.getElementById('chk-name').value;
+                const addr = document.getElementById('chk-address').value;
+                const pin = document.getElementById('chk-pincode').value;
+                document.getElementById('chk-review-address-text').innerText = `${name}, ${addr} - ${pin}`;
+
+                const subtotal = storeState.cart.reduce((sum, i) => sum + (i.sellingPrice * i.qty), 0);
+                document.getElementById('chk-review-total').innerText = `₹${subtotal.toLocaleString('en-IN')}`;
+                s2.classList.remove('hidden');
+            } else if (step === 3) {
+                s3.classList.remove('hidden');
+            }
+        }
+
+        function executeSimulatedPayment() {
+            const orderId = 'BST-' + Math.floor(100000 + Math.random() * 900000);
+            const total = storeState.cart.reduce((sum, i) => sum + (i.sellingPrice * i.qty), 0);
+
+            const newOrder = {
+                id: orderId,
+                items: [...storeState.cart],
+                amount: total,
+                status: 'Confirmed',
+                date: new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }),
+                address: document.getElementById('chk-address').value
+            };
+
+            storeState.orders.unshift(newOrder);
+            storeState.cart = [];
+            storeState.appliedCoupon = null;
+            saveState();
+
+            closeCheckout();
+            toggleCartDrawer(false);
+            showToast(`🎉 Order ${orderId} Placed Successfully!`);
+            navigateTo('account');
+            renderAccountOrders();
+        }
+
+        /* ================= USER ACCOUNT ENGINE ================= */
+        function switchAccountTab(tab) {
+            document.getElementById('acc-tab-orders').classList.add('hidden');
+            document.getElementById('acc-tab-wishlist').classList.add('hidden');
+            document.getElementById('acc-tab-addresses').classList.add('hidden');
+
+            document.getElementById(`acc-tab-${tab}`).classList.remove('hidden');
+
+            if (tab === 'orders') renderAccountOrders();
+            if (tab === 'wishlist') renderAccountWishlist();
+        }
+
+        function renderAccountOrders() {
+            const container = document.getElementById('orders-list-container');
+            container.innerHTML = '';
+
+            if (storeState.orders.length === 0) {
+                container.innerHTML = `<p class="text-xs text-gray-500 py-8 text-center">No past orders yet.</p>`;
+                return;
+            }
+
+            storeState.orders.forEach(o => {
+                const card = document.createElement('div');
+                card.className = "bg-beast-900 border border-gray-800 rounded-2xl p-4 space-y-3 text-xs";
+                card.innerHTML = `
+                    <div class="flex items-center justify-between border-b border-gray-800 pb-2">
+                        <div>
+                            <span class="font-extrabold text-white text-sm">Order #${o.id}</span>
+                            <span class="text-gray-500 text-[10px] block">${o.date}</span>
+                        </div>
+                        <span class="px-2.5 py-1 rounded-full text-[10px] font-extrabold uppercase ${
+                            o.status === 'Delivered' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/30' : 'bg-amber-500/10 text-amber-400 border border-amber-500/30'
+                        }">${o.status}</span>
+                    </div>
+                    <div class="space-y-1">
+                        ${o.items.map(i => `<div class="flex justify-between text-gray-300"><span>${i.title} (x${i.qty})</span><span class="font-bold">₹${(i.sellingPrice * i.qty).toLocaleString('en-IN')}</span></div>`).join('')}
+                    </div>
+                    <div class="flex justify-between items-center pt-2 border-t border-gray-800 font-bold">
+                        <span class="text-gray-400">Total Paid:</span>
+                        <span class="text-beast-500 text-sm">₹${o.amount.toLocaleString('en-IN')}</span>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function renderAccountWishlist() {
+            const container = document.getElementById('wishlist-grid-container');
+            container.innerHTML = '';
+
+            if (storeState.wishlist.length === 0) {
+                container.innerHTML = `<p class="text-xs text-gray-500 py-8 text-center sm:col-span-2">Wishlist is empty.</p>`;
+                return;
+            }
+
+            storeState.wishlist.forEach(p => {
+                const card = document.createElement('div');
+                card.className = "bg-beast-900 border border-gray-800 rounded-2xl p-3 flex gap-3 items-center text-xs";
+                card.innerHTML = `
+                    <div class="w-12 h-12 bg-beast-800 rounded-xl p-1 flex items-center justify-center">
+                        ${getSVGProductVisual(p.imgKeyword)}
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <h4 class="font-bold text-white truncate">${p.title}</h4>
+                        <p class="text-beast-500 font-extrabold mt-0.5">₹${p.sellingPrice.toLocaleString('en-IN')}</p>
+                    </div>
+                    <button onclick="addToCart('${p.id}')" class="px-3 py-1.5 bg-beast-500 text-black font-extrabold rounded-lg">Move to Bag</button>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        /* ================= ADMIN PORTAL ENGINE ================= */
+        function toggleAdminPanel() {
+            const adminSec = document.getElementById('view-admin');
+            if (adminSec.classList.contains('hidden')) {
+                navigateTo('admin');
+                renderAdminDashboard();
+            } else {
+                navigateTo('home');
+            }
+        }
+
+        function renderAdminDashboard() {
+            // Calculate stats
+            const rev = storeState.orders.reduce((sum, o) => sum + o.amount, 0);
+            document.getElementById('admin-stat-revenue').innerText = `₹${rev.toLocaleString('en-IN')}`;
+            document.getElementById('admin-stat-orders').innerText = storeState.orders.length;
+            document.getElementById('admin-stat-products').innerText = storeState.products.length;
+            const lowStock = storeState.products.filter(p => p.stock < 10).length;
+            document.getElementById('admin-stat-lowstock').innerText = lowStock;
+
+            // Render Products Table
+            const prodTable = document.getElementById('admin-products-table');
+            prodTable.innerHTML = storeState.products.map(p => `
+                <tr class="hover:bg-beast-900/50">
+                    <td class="p-3.5 font-bold text-white">${p.title}</td>
+                    <td class="p-3.5 text-gray-400">${p.category}</td>
+                    <td class="p-3.5 text-beast-500 font-bold">₹${p.sellingPrice.toLocaleString('en-IN')}</td>
+                    <td class="p-3.5 text-gray-500 line-through">₹${p.mrp.toLocaleString('en-IN')}</td>
+                    <td class="p-3.5 font-semibold ${p.stock < 10 ? 'text-amber-400' : 'text-emerald-400'}">${p.stock}</td>
+                    <td class="p-3.5 text-right space-x-2">
+                        <button onclick="editProduct('${p.id}')" class="text-blue-400 hover:underline"><i class="fa-solid fa-pen"></i></button>
+                        <button onclick="deleteProduct('${p.id}')" class="text-rose-400 hover:underline"><i class="fa-solid fa-trash"></i></button>
+                    </td>
+                </tr>
+            `).join('');
+
+            // Render Orders Table
+            const ordersTable = document.getElementById('admin-orders-table');
+            ordersTable.innerHTML = storeState.orders.map(o => `
+                <tr class="hover:bg-beast-900/50">
+                    <td class="p-3.5 font-bold text-white">#${o.id}</td>
+                    <td class="p-3.5 text-gray-300">Alex Mercer</td>
+                    <td class="p-3.5 text-beast-500 font-bold">₹${o.amount.toLocaleString('en-IN')}</td>
+                    <td class="p-3.5"><span class="px-2 py-0.5 bg-amber-500/10 text-amber-400 rounded-md font-bold">${o.status}</span></td>
+                    <td class="p-3.5 text-gray-400">${o.date}</td>
+                    <td class="p-3.5 text-right">
+                        <select onchange="updateOrderStatus('${o.id}', this.value)" class="bg-beast-900 border border-gray-700 text-white rounded p-1 text-[11px]">
+                            <option value="Confirmed" ${o.status === 'Confirmed' ? 'selected' : ''}>Confirmed</option>
+                            <option value="Shipped" ${o.status === 'Shipped' ? 'selected' : ''}>Shipped</option>
+                            <option value="Out for Delivery" ${o.status === 'Out for Delivery' ? 'selected' : ''}>Out for Delivery</option>
+                            <option value="Delivered" ${o.status === 'Delivered' ? 'selected' : ''}>Delivered</option>
+                        </select>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function switchAdminTab(tab) {
+            document.getElementById('admin-content-products').classList.add('hidden');
+            document.getElementById('admin-content-orders').classList.add('hidden');
+            document.getElementById('admin-content-coupons').classList.add('hidden');
+
+            document.getElementById(`admin-content-${tab}`).classList.remove('hidden');
+        }
+
+        function openAddProductModal() {
+            document.getElementById('product-modal-title').innerText = "Add New Product";
+            document.getElementById('product-form').reset();
+            document.getElementById('edit-prod-id').value = '';
+            document.getElementById('admin-product-modal').classList.remove('hidden');
+        }
+
+        function closeProductModal() {
+            document.getElementById('admin-product-modal').classList.add('hidden');
+        }
+
+        function handleProductFormSubmit(e) {
+            e.preventDefault();
+            const editId = document.getElementById('edit-prod-id').value;
+            const newProd = {
+                id: editId || 'prod_' + Date.now(),
+                title: document.getElementById('prod-title').value,
+                brand: document.getElementById('prod-brand').value,
+                category: document.getElementById('prod-category').value,
+                sellingPrice: Number(document.getElementById('prod-price').value),
+                mrp: Number(document.getElementById('prod-mrp').value),
+                stock: Number(document.getElementById('prod-stock').value),
+                imgKeyword: document.getElementById('prod-img').value || 'iphone16pro',
+                rating: 4.8,
+                reviewsCount: 10,
+                storages: ['Standard'],
+                colors: ['Default'],
+                specs: { Spec: 'Certified Beast Grade Product' }
+            };
+
+            if (editId) {
+                const idx = storeState.products.findIndex(p => p.id === editId);
+                if (idx > -1) storeState.products[idx] = { ...storeState.products[idx], ...newProd };
+            } else {
+                storeState.products.unshift(newProd);
+            }
+
+            saveState();
+            closeProductModal();
+            renderAdminDashboard();
+            renderProducts();
+            showToast(editId ? 'Product updated' : 'Product created');
+        }
+
+        function editProduct(id) {
+            const p = storeState.products.find(x => x.id === id);
+            if (!p) return;
+
+            document.getElementById('product-modal-title').innerText = "Edit Product";
+            document.getElementById('edit-prod-id').value = p.id;
+            document.getElementById('prod-title').value = p.title;
+            document.getElementById('prod-brand').value = p.brand;
+            document.getElementById('prod-category').value = p.category;
+            document.getElementById('prod-price').value = p.sellingPrice;
+            document.getElementById('prod-mrp').value = p.mrp;
+            document.getElementById('prod-stock').value = p.stock;
+            document.getElementById('prod-img').value = p.imgKeyword;
+
+            document.getElementById('admin-product-modal').classList.remove('hidden');
+        }
+
+        function deleteProduct(id) {
+            if (confirm("Delete this product from store?")) {
+                storeState.products = storeState.products.filter(p => p.id !== id);
+                saveState();
+                renderAdminDashboard();
+                renderProducts();
+                showToast('Product deleted', 'error');
+            }
+        }
+
+        function updateOrderStatus(orderId, newStatus) {
+            const o = storeState.orders.find(x => x.id === orderId);
+            if (o) {
+                o.status = newStatus;
+                saveState();
+                renderAdminDashboard();
+                showToast(`Order status set to ${newStatus}`);
+            }
+        }
+
+        function addNewCoupon() {
+            const code = document.getElementById('coupon-code-input').value.trim().toUpperCase();
+            const discount = Number(document.getElementById('coupon-discount-input').value);
+            if (code && discount) {
+                storeState.coupons.push({ code, discountPercent: discount });
+                saveState();
+                showToast(`Active coupon ${code} added!`);
+                document.getElementById('coupon-code-input').value = '';
+                document.getElementById('coupon-discount-input').value = '';
+            }
+        }
+
+        /* ================= ROUTING / NAVIGATION ================= */
+        function navigateTo(viewId) {
+            const views = ['home', 'product-detail', 'account', 'admin'];
+            views.forEach(v => {
+                const el = document.getElementById(`view-${v}`);
+                if (el) el.classList.add('hidden');
+            });
+
+            const target = document.getElementById(`view-${viewId}`);
+            if (target) target.classList.remove('hidden');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        /* ================= INITIALIZATION ================= */
+        window.onload = function() {
+            // Render Filters Sidebar Brands dynamically
+            const brands = ['All', ...new Set(storeState.products.map(p => p.brand))];
+            document.getElementById('brand-filter-container').innerHTML = brands.map(b => `
+                <label class="flex items-center gap-2 cursor-pointer hover:text-white">
+                    <input type="radio" name="brand-filter" value="${b}" ${b === 'All' ? 'checked' : ''} onchange="storeState.activeFilters.brand = '${b}'; renderProducts();" class="accent-beast-500">
+                    <span>${b}</span>
+                </label>
+            `).join('');
+
+            updateBadges();
+            renderProducts();
+        };
+    </script>
+</body>
+</html>
